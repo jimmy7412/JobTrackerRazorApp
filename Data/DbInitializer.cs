@@ -80,8 +80,7 @@ namespace JobTrackerRazorApp.Data
                 new Tag{JobID = 1, CompanyID = 1},
                 new Tag{JobID = 2, CompanyID = 1},
                 new Tag{JobID = 3, CompanyID = 1},
-                new Tag{JobID = 4, CompanyID = 1},
-                new Tag{JobID = 5, CompanyID = 2}
+                new Tag{JobID = 4, CompanyID = 2}
             };
             
             context.Tags.AddRange(tags);

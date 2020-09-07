@@ -21,20 +21,29 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
         [BindProperty]
         public Job Job { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Job = await _context.Jobs.FirstOrDefaultAsync(m => m.ID == id);
+            Job = await _context.Jobs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Job == null)
             {
                 return NotFound();
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ErrorMessage = "Delete Failed, Try Again";
+            }
+            
             return Page();
         }
 
@@ -45,15 +54,26 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Jobs.FindAsync(id);
+            var Job = await _context.Jobs.FindAsync(id);
 
-            if (Job != null)
+            if (Job == null)
+            {
+                return NotFound();
+            }
+
+            try
             {
                 _context.Jobs.Remove(Job);
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException e)
+            {
+                return RedirectToAction("./Delete",
+                    new {id, saveChangesError = true});
             }
 
-            return RedirectToPage("./Index");
+            
         }
     }
 }

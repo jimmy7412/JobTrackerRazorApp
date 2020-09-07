@@ -1,0 +1,32 @@
+﻿@page
+@model JobTrackerRazorApp.Pages.JobsByCompany
+
+@{
+    ViewData["Title"] = "Jobs By Company";
+}
+
+<h2>Jobs by Company</h2>
+
+<table>
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            Jobs
+        </th>
+    </tr>
+
+
+@foreach (var item in Model.Jobs)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        <td>
+            @item.JobCount
+        </td>
+    </tr>
+    }
+</table>

@@ -30,7 +30,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Jobs.FirstOrDefaultAsync(m => m.ID == id);
+            Job = await _context.Jobs.FindAsync(id);
 
             if (Job == null)
             {
@@ -41,32 +41,28 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var jobToUpdate = await _context.Jobs.FindAsync(id);
+            
+            if (jobToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Job).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Job>(
+                jobToUpdate,
+                "job", 
+                job => job.Title, 
+                job => job.Company, 
+                job => job.ApplicationDate,
+                job => job.Interview ))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!JobExists(Job.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            return Page();
         }
 
         private bool JobExists(int id)

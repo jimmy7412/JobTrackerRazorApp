@@ -31,15 +31,18 @@ namespace JobTrackerRazorApp.Pages.Jobs
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var emptyJob = new Job();
+            
+            if (await TryUpdateModelAsync<Job>(
+                emptyJob, "job",
+                s => s.Title,s=>s.Company, s=> s.ApplicationDate))
             {
-                return Page();
+                _context.Jobs.Add(Job);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Jobs.Add(Job);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

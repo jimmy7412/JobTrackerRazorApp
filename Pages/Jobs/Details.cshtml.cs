@@ -28,7 +28,11 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Jobs.FirstOrDefaultAsync(m => m.ID == id);
+            Job = await _context.Jobs
+                .Include(s=> s.Tags)
+                .ThenInclude(e => e.Company)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Job == null)
             {

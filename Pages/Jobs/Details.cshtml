@@ -71,6 +71,28 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Job.Interview)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Job.Tags)            
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Company</th>
+                    <th>Process Rating</th>
+                </tr>     
+                @foreach (var item in Model.Job.Tags)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item.Strength)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

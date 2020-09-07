@@ -10,44 +10,63 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Title:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full list</a>
+        </p>        
+    </div>
+
+</form>
+
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].ApplicationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].LastContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].LastChecked)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].State)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].Rejected)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job[0].Interview)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort"
+               asp-route-currentFilter="@Model.CurrentFilter">
+                @Html.DisplayNameFor(model => model.Jobs[0].Title)
+            </a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].ApplicationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].LastContact)
+        </th>
+        <th>
+            <a asp-page="./Index" asp-route-sortOrder="@Model.CheckedSort"
+               asp-route-currentFilter="@Model.CurrentFilter">
+                @Html.DisplayNameFor(model => model.Jobs[0].LastChecked)
+            </a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].Rejected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].Interview)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Job) {
+    @foreach (var item in Model.Jobs) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -85,6 +104,22 @@
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Jobs.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Jobs.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Jobs.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">Previous</a> 
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Jobs.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">Next</a> 
