@@ -1,0 +1,133 @@
+@page "{id:int?}"
+@using JobTrackerRazorApp.Models
+@model JobTrackerRazorApp.Pages.Recruiters.IndexModel
+
+@{
+    ViewData["Title"] = "Recruiters";
+}
+
+<h1>Recruiters</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>Last Contact Date</th>
+            <th>
+                Companies
+            </th>
+            <th>Location</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RecruiterData.Recruiters)
+{
+    string selectedRow = "";
+    if (item.ID == Model.RecruiterID)
+    {
+        selectedRow = "table-success";
+    }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstMidName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastContactDate)
+            </td>
+            <td>
+                @{
+                    foreach (var company in item.CompanyAssignments)
+                    {
+                        @company.Company.CompanyID @: @company.Company.CompanyName <br/>
+                    }
+                }
+            </td>
+            <td>
+                @if (item.Location != null)
+                {
+                    @item.Location.OfficeLocation
+                }
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (Model.RecruiterData.Companies != null)
+{
+    <h3>Companies Covered by Selected Recruiter</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Number</th>
+            <th>Company Name</th>
+            <th>Sector</th>
+        </tr>
+
+        @foreach (var item in Model.RecruiterData.Companies)
+        {
+            string selectedRow = "";
+            if (item.CompanyID == Model.CompanyID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <a asp-page="./Index" asp-route-companyID="@item.CompanyID">Select</a>
+                </td>
+                <td>
+                    @item.CompanyID
+                </td>
+                <td>
+                    @item.CompanyName
+                </td>
+                <td>
+                    @item.Sector.Name
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (Model.RecruiterData.Tags != null)
+{
+    <h3>
+        Jobs in Selected Company
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+        </tr>
+        @foreach (var item in Model.RecruiterData.Tags)
+        {
+            <tr>
+                <td>
+                    @item.Job.Title
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Strength)
+                </td>
+            </tr>
+        }
+    </table>
+}

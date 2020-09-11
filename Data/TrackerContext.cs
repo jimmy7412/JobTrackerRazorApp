@@ -17,12 +17,23 @@ namespace JobTrackerRazorApp.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Sector> Sectors { get; set; }
+        public DbSet<Recruiter> Recruiters { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<CompanyAssignment> CompanyAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Company>().ToTable("Company");
             modelBuilder.Entity<Job>().ToTable("Job");
             modelBuilder.Entity<Tag>().ToTable("Tag");
+            modelBuilder.Entity<Sector>().ToTable("Sector");
+            modelBuilder.Entity<Recruiter>().ToTable("Recruiter");
+            modelBuilder.Entity<Location>().ToTable("Location");
+            modelBuilder.Entity<CompanyAssignment>().ToTable("CompanyAssignment");
+
+            modelBuilder.Entity<CompanyAssignment>()
+                .HasKey(c => new {c.CompanyID, c.RecruiterID});
         }
     }
 }

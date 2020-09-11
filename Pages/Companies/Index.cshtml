@@ -1,0 +1,48 @@
+@page
+@model JobTrackerRazorApp.Pages.Companies.IndexModel
+
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<h1>Companies</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Companies[0].CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Companies[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Companies[0].Sector)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Companies) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sector.Name)
+                        </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CompanyID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CompanyID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CompanyID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
