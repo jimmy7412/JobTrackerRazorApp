@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobTrackerRazorApp.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    [Migration("20200911215452_InitialCreate")]
+    [Migration("20200912215115_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,11 +69,8 @@ namespace JobTrackerRazorApp.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnName("Company")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                    b.Property<int>("CompanyID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Country")
                         .HasColumnType("TEXT")
@@ -101,6 +98,8 @@ namespace JobTrackerRazorApp.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CompanyID");
 
                     b.ToTable("Job");
                 });
@@ -209,10 +208,19 @@ namespace JobTrackerRazorApp.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("JobTrackerRazorApp.Models.Job", b =>
+                {
+                    b.HasOne("JobTrackerRazorApp.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("JobTrackerRazorApp.Models.Location", b =>
                 {
                     b.HasOne("JobTrackerRazorApp.Models.Recruiter", "Recruiter")
-                        .WithOne("Locations")
+                        .WithOne("Location")
                         .HasForeignKey("JobTrackerRazorApp.Models.Location", "RecruiterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

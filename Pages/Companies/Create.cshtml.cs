@@ -10,7 +10,7 @@ using JobTrackerRazorApp.Models;
 
 namespace JobTrackerRazorApp.Pages.Companies
 {
-    public class CreateModel : PageModel
+    public class CreateModel : SectorNamePageModel
     {
         private readonly JobTrackerRazorApp.Data.TrackerContext _context;
 
@@ -21,6 +21,7 @@ namespace JobTrackerRazorApp.Pages.Companies
 
         public IActionResult OnGet()
         {
+            PopulateSectorsDropDownList(_context);
             return Page();
         }
 
@@ -31,15 +32,22 @@ namespace JobTrackerRazorApp.Pages.Companies
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var emptyCompany = new Company();
+            
+            if (await TryUpdateModelAsync<Company>(
+                emptyCompany, "company",
+                s=> s.CompanyID,
+                s=> s.SectorID,
+                s=> s.CompanyName))
             {
-                return Page();
+                _context.Companies.Add(emptyCompany);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
+            
+            PopulateSectorsDropDownList(_context, emptyCompany.SectorID);
 
-            _context.Companies.Add(Company);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

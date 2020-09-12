@@ -11,7 +11,7 @@ using JobTrackerRazorApp.Models;
 
 namespace JobTrackerRazorApp.Pages.Companies
 {
-    public class EditModel : PageModel
+    public class EditModel : SectorNamePageModel
     {
         private readonly JobTrackerRazorApp.Data.TrackerContext _context;
 
@@ -30,48 +30,49 @@ namespace JobTrackerRazorApp.Pages.Companies
                 return NotFound();
             }
 
-            Company = await _context.Companies.FirstOrDefaultAsync(m => m.CompanyID == id);
+            Company = await _context.Companies
+                .Include(c=> c.Sector)
+                .FirstOrDefaultAsync(m => m.CompanyID == id);
 
             if (Company == null)
             {
                 return NotFound();
             }
+            
+            PopulateSectorsDropDownList(_context, Company.SectorID);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Company).State = EntityState.Modified;
+            var companyToUpdate = await _context.Companies.FindAsync(id);
 
-            try
+            if (companyToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            if (await TryUpdateModelAsync<Company>(
+                companyToUpdate,
+                "company",   // Prefix for form value.
+                c => c.SectorID, c => c.CompanyName,
+                c=> c.Size))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CompanyExists(Company.CompanyID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool CompanyExists(int id)
-        {
-            return _context.Companies.Any(e => e.CompanyID == id);
+            // Select DepartmentID if TryUpdateModelAsync fails.
+            PopulateSectorsDropDownList(_context, companyToUpdate.SectorID);
+            return Page();
         }
     }
 }

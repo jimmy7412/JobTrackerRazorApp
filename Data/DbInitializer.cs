@@ -16,49 +16,6 @@ namespace JobTrackerRazorApp.Data
             {
                 return; //db has been seeded
             }
-
-            var jobs = new Job[]
-            {
-                new Job
-                {
-                    Title = "Unemployed SDE", Company = "Amazon",
-                    ApplicationDate = DateTime.Parse("2020-07-01"), City = "Seattle",
-                    State = "Washington", Country = "USA",
-                    Interview = false, Rejected = true,
-                    LastChecked = DateTime.Parse("2020-08-01"),
-                    LastContact = DateTime.Parse("2020-07-01")
-                },
-                new Job
-                {
-                    Title = "SDE", Company = "Amazon",
-                    ApplicationDate = DateTime.Parse("2020-06-01"), City = "Seattle",
-                    State = "Washington", Country = "USA",
-                    Interview = false, Rejected = true,
-                    LastChecked = DateTime.Parse("2020-07-01"),
-                    LastContact = DateTime.Parse("2020-06-01")
-                },
-                new Job
-                {
-                    Title = "SDE Rejecter", Company = "Amazon",
-                    ApplicationDate = DateTime.Parse("2020-05-01"), City = "Seattle",
-                    State = "Washington", Country = "USA",
-                    Interview = false, Rejected = true,
-                    LastChecked = DateTime.Parse("2020-05-01"),
-                    LastContact = DateTime.Parse("2020-05-01")
-                },
-                new Job
-                {
-                    Title = "Unemployed SDE", Company = "Microsoft",
-                    ApplicationDate = DateTime.Parse("2020-03-01"), City = "Seattle",
-                    State = "Washington", Country = "USA",
-                    Interview = false, Rejected = true,
-                    LastChecked = DateTime.Parse("2020-05-01"),
-                    LastContact = DateTime.Parse("2020-03-01")
-                }
-            };
-            
-            context.Jobs.AddRange(jobs);
-            context.SaveChanges();
             
             var sectors = new Sector[]
             {
@@ -86,6 +43,49 @@ namespace JobTrackerRazorApp.Data
             };
             
             context.Companies.AddRange(companies);
+            context.SaveChanges();
+            
+            var jobs = new Job[]
+            {
+                new Job
+                {
+                    Title = "Unemployed SDE", Company = companies.Single(i => i.CompanyName == "Amazon"),
+                    ApplicationDate = DateTime.Parse("2020-07-01"), City = "Seattle",
+                    State = "Washington", Country = "USA",
+                    Interview = false, Rejected = true,
+                    LastChecked = DateTime.Parse("2020-08-01"),
+                    LastContact = DateTime.Parse("2020-07-01")
+                },
+                new Job
+                {
+                    Title = "SDE", Company = companies.Single(i => i.CompanyName == "Amazon"),
+                    ApplicationDate = DateTime.Parse("2020-06-01"), City = "Seattle",
+                    State = "Washington", Country = "USA",
+                    Interview = false, Rejected = true,
+                    LastChecked = DateTime.Parse("2020-07-01"),
+                    LastContact = DateTime.Parse("2020-06-01")
+                },
+                new Job
+                {
+                    Title = "SDE Rejecter", Company = companies.Single(i => i.CompanyName == "Amazon"),
+                    ApplicationDate = DateTime.Parse("2020-05-01"), City = "Seattle",
+                    State = "Washington", Country = "USA",
+                    Interview = false, Rejected = true,
+                    LastChecked = DateTime.Parse("2020-05-01"),
+                    LastContact = DateTime.Parse("2020-05-01")
+                },
+                new Job
+                {
+                    Title = "Unemployed SDE", Company = companies.Single(i => i.CompanyName == "Microsoft"),
+                    ApplicationDate = DateTime.Parse("2020-03-01"), City = "Seattle",
+                    State = "Washington", Country = "USA",
+                    Interview = false, Rejected = true,
+                    LastChecked = DateTime.Parse("2020-05-01"),
+                    LastContact = DateTime.Parse("2020-03-01")
+                }
+            };
+            
+            context.Jobs.AddRange(jobs);
             context.SaveChanges();
             
             var recruiters = new Recruiter[]

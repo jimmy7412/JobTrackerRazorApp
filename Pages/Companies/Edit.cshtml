@@ -15,6 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Company.CompanyID" />
             <div class="form-group">
+                <label asp-for="Company.CompanyID" class="control-label"></label>
+                <div>@Html.DisplayFor(model => model.Company.CompanyID)</div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Company.CompanyName" class="control-label"></label>
                 <input asp-for="Company.CompanyName" class="form-control" />
                 <span asp-validation-for="Company.CompanyName" class="text-danger"></span>
@@ -25,8 +29,9 @@
                 <span asp-validation-for="Company.Size" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Company.SectorID" class="control-label"></label>
-                <select asp-for="Company.SectorID" class="form-control" asp-items="ViewBag.SectorID"></select>
+                <label asp-for="Company.Sector" class="control-label"></label>
+                <select asp-for="Company.SectorID" class="form-control" 
+                        asp-items="@Model.SectorNameSL"></select>
                 <span asp-validation-for="Company.SectorID" class="text-danger"></span>
             </div>
             <div class="form-group">

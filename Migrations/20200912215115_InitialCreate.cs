@@ -8,28 +8,6 @@ namespace JobTrackerRazorApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Job",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(maxLength: 50, nullable: false),
-                    Company = table.Column<string>(maxLength: 50, nullable: false),
-                    ApplicationDate = table.Column<DateTime>(nullable: false),
-                    LastContact = table.Column<DateTime>(nullable: false),
-                    LastChecked = table.Column<DateTime>(nullable: false),
-                    City = table.Column<string>(maxLength: 50, nullable: true),
-                    State = table.Column<string>(maxLength: 50, nullable: true),
-                    Country = table.Column<string>(maxLength: 50, nullable: true),
-                    Rejected = table.Column<bool>(nullable: false),
-                    Interview = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Job", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Recruiter",
                 columns: table => new
                 {
@@ -122,6 +100,34 @@ namespace JobTrackerRazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Job",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(maxLength: 50, nullable: false),
+                    ApplicationDate = table.Column<DateTime>(nullable: false),
+                    LastContact = table.Column<DateTime>(nullable: false),
+                    LastChecked = table.Column<DateTime>(nullable: false),
+                    City = table.Column<string>(maxLength: 50, nullable: true),
+                    State = table.Column<string>(maxLength: 50, nullable: true),
+                    Country = table.Column<string>(maxLength: 50, nullable: true),
+                    Rejected = table.Column<bool>(nullable: false),
+                    Interview = table.Column<bool>(nullable: false),
+                    CompanyID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Job", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Job_Company_CompanyID",
+                        column: x => x.CompanyID,
+                        principalTable: "Company",
+                        principalColumn: "CompanyID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tag",
                 columns: table => new
                 {
@@ -159,6 +165,11 @@ namespace JobTrackerRazorApp.Migrations
                 column: "RecruiterID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Job_CompanyID",
+                table: "Job",
+                column: "CompanyID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tag_CompanyID",
                 table: "Tag",
                 column: "CompanyID");
@@ -184,10 +195,10 @@ namespace JobTrackerRazorApp.Migrations
                 name: "Recruiter");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "Job");
 
             migrationBuilder.DropTable(
-                name: "Job");
+                name: "Company");
 
             migrationBuilder.DropTable(
                 name: "Sector");

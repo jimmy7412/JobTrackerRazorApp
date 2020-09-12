@@ -28,7 +28,10 @@ namespace JobTrackerRazorApp.Pages.Companies
                 return NotFound();
             }
 
-            Company = await _context.Companies.FirstOrDefaultAsync(m => m.CompanyID == id);
+            Company = await _context.Companies
+                .AsNoTracking()
+                .Include(c => c.Sector)
+                .FirstOrDefaultAsync(m => m.CompanyID == id);
 
             if (Company == null)
             {

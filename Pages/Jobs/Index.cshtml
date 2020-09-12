@@ -33,7 +33,7 @@
             </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Jobs[0].Company)
+            @Html.DisplayNameFor(model => model.Jobs[0].Company.CompanyName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Jobs[0].ApplicationDate)
@@ -72,7 +72,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Company)
+                @Html.DisplayFor(modelItem => item.Company.CompanyName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationDate)

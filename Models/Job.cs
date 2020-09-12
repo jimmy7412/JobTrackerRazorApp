@@ -12,11 +12,7 @@ namespace JobTrackerRazorApp.Models
         [StringLength(50)]
         [Display(Name = "Title")]
         public string Title { get; set; }
-        [Required]
-        [StringLength(50, ErrorMessage = "Company Name Cannot be longer than 50 characters.")]
-        [Column("Company")]
-        [Display(Name = "Company")]
-        public string Company { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Application Date")]
@@ -40,6 +36,8 @@ namespace JobTrackerRazorApp.Models
         public string Country { get; set; }
         public bool Rejected { get; set; }
         public bool Interview { get; set; }
+        [Required]
+        public Company Company { get; set; }
         
         public ICollection<Tag> Tags { get; set; }
     }
