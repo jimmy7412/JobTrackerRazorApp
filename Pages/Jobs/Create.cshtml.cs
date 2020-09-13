@@ -10,7 +10,7 @@ using JobTrackerRazorApp.Models;
 
 namespace JobTrackerRazorApp.Pages.Jobs
 {
-    public class CreateModel : PageModel
+    public class CreateModel : CompanyNamePageModel
     {
         private readonly JobTrackerRazorApp.Data.TrackerContext _context;
 
@@ -21,6 +21,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
         public IActionResult OnGet()
         {
+            PopulateCompanyDropDownList(_context);
             return Page();
         }
 
@@ -35,13 +36,16 @@ namespace JobTrackerRazorApp.Pages.Jobs
             
             if (await TryUpdateModelAsync<Job>(
                 emptyJob, "job",
-                s => s.Title,s=>s.Company, s=> s.ApplicationDate))
+                s => s.Title,s=>s.Company, s=> s.ApplicationDate, 
+                s => s.ID, 
+                s => s.CompanyID))
             {
                 _context.Jobs.Add(Job);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
 
+            PopulateCompanyDropDownList(_context, emptyJob.CompanyID);
             return Page();
         }
     }

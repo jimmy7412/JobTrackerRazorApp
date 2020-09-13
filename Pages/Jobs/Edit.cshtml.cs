@@ -11,7 +11,7 @@ using JobTrackerRazorApp.Models;
 
 namespace JobTrackerRazorApp.Pages.Jobs
 {
-    public class EditModel : PageModel
+    public class EditModel : CompanyNamePageModel
     {
         private readonly JobTrackerRazorApp.Data.TrackerContext _context;
 
@@ -30,19 +30,27 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Jobs.FindAsync(id);
+            Job = await _context.Jobs
+                .Include(c=> c.Company)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Job == null)
             {
                 return NotFound();
             }
+            PopulateCompanyDropDownList(_context, Job.CompanyID);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            
             var jobToUpdate = await _context.Jobs.FindAsync(id);
             
             if (jobToUpdate == null)
@@ -54,7 +62,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 jobToUpdate,
                 "job", 
                 job => job.Title, 
-                job => job.Company, 
+                job => job.CompanyID, 
                 job => job.ApplicationDate,
                 job => job.Interview ))
             {
@@ -62,6 +70,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 return RedirectToPage("./Index");
             }
 
+            PopulateCompanyDropDownList(_context, jobToUpdate.CompanyID);
             return Page();
         }
 

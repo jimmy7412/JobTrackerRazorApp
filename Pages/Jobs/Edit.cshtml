@@ -21,8 +21,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Job.Company" class="control-label"></label>
-                <input asp-for="Job.Company" class="form-control" />
-                <span asp-validation-for="Job.Company" class="text-danger"></span>
+                <select asp-for="Job.CompanyID" class="form-control" 
+                        asp-items="@Model.CompanyNameSL"></select>
+                <span asp-validation-for="Job.CompanyID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Job.ApplicationDate" class="control-label"></label>

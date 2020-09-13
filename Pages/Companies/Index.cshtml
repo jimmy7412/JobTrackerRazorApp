@@ -34,9 +34,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sector.Name)
-                        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sector.Name)
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.CompanyID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.CompanyID">Details</a> |
