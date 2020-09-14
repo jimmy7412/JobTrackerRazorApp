@@ -72,7 +72,9 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
             int pageSize = 3;
             Jobs = await PaginatedList<Job>.CreateAsync(
-                jobsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+                jobsIQ
+                    .Include(j => j.Company)
+                    .AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

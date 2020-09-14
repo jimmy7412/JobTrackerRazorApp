@@ -37,9 +37,10 @@ namespace JobTrackerRazorApp.Models
         public bool Rejected { get; set; }
         public bool Interview { get; set; }
         [Required]
+        [Display(Name = "Company")]
         public Company Company { get; set; }
         public int CompanyID { get; set; }
-        
+
         public ICollection<Tag> Tags { get; set; }
     }
 }

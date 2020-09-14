@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobTrackerRazorApp.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    [Migration("20200913232317_InitialCreate")]
+    [Migration("20200914231551_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

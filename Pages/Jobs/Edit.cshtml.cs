@@ -64,7 +64,8 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 job => job.Title, 
                 job => job.CompanyID, 
                 job => job.ApplicationDate,
-                job => job.Interview ))
+                job => job.Interview,
+                job => job.Company))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
