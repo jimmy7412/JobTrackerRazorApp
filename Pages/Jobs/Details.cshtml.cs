@@ -31,6 +31,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
             Job = await _context.Jobs
                 .Include(s=> s.Tags)
                 .ThenInclude(e => e.Company)
+                .Include(s=> s.Company)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
