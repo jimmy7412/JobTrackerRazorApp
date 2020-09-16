@@ -9,3 +9,4 @@ Tracker.db-shm
 Tracker.db-wal
 
 .idea/
+.vs/
