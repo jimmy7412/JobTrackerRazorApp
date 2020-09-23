@@ -44,13 +44,8 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            
             var jobToUpdate = await _context.Jobs.FindAsync(id);
             
             if (jobToUpdate == null)
@@ -60,12 +55,12 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
             if (await TryUpdateModelAsync<Job>(
                 jobToUpdate,
-                "job", 
-                job => job.Title, 
-                job => job.CompanyID, 
-                job => job.ApplicationDate,
-                job => job.Interview,
-                job => job.Company))
+                "job"/*, 
+                j => j.Title, 
+                j => j.CompanyID, 
+                j => j.ApplicationDate,
+                j => j.Interview,
+                j => j.Company*/))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");

@@ -38,7 +38,8 @@ namespace JobTrackerRazorApp.Pages.Companies
                 emptyCompany, "company",
                 s=> s.CompanyID,
                 s=> s.SectorID,
-                s=> s.CompanyName))
+                s=> s.CompanyName,
+                s => s.Sector))
             {
                 _context.Companies.Add(emptyCompany);
                 await _context.SaveChangesAsync();

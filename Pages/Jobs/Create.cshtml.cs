@@ -40,7 +40,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 s => s.ID, 
                 s => s.CompanyID))
             {
-                _context.Jobs.Add(Job);
+                _context.Jobs.Add(emptyJob);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
