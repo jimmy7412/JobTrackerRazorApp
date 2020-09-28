@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using JobTrackerRazorApp.Data;
 using JobTrackerRazorApp.Models;
 
 namespace JobTrackerRazorApp.Pages.Jobs
@@ -33,19 +27,20 @@ namespace JobTrackerRazorApp.Pages.Jobs
             Job = await _context.Jobs
                 .Include(c=> c.Company)
                 .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Job == null)
-            {
-                return NotFound();
-            }
+            
             PopulateCompanyDropDownList(_context, Job.CompanyID);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            
             var jobToUpdate = await _context.Jobs.FindAsync(id);
             
             if (jobToUpdate == null)
@@ -55,12 +50,13 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
             if (await TryUpdateModelAsync<Job>(
                 jobToUpdate,
-                "job"/*, 
+                "job", 
                 j => j.Title, 
                 j => j.CompanyID, 
-                j => j.ApplicationDate,
-                j => j.Interview,
-                j => j.Company*/))
+                j => j.ApplicationDate, 
+                j => j.Interview, 
+                j => j.Company
+            ))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
@@ -68,11 +64,6 @@ namespace JobTrackerRazorApp.Pages.Jobs
 
             PopulateCompanyDropDownList(_context, jobToUpdate.CompanyID);
             return Page();
-        }
-
-        private bool JobExists(int id)
-        {
-            return _context.Jobs.Any(e => e.ID == id);
         }
     }
 }
