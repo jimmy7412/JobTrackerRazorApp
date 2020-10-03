@@ -55,7 +55,13 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 j => j.CompanyID, 
                 j => j.ApplicationDate, 
                 j => j.Interview, 
-                j => j.Company
+                j => j.Company,
+                j => j.City,
+                j => j.Country,
+                j => j.State,
+                j => j.LastContact,
+                j => j.LastChecked,
+                j => j.Rejected
             ))
             {
                 await _context.SaveChangesAsync();

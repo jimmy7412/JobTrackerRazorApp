@@ -36,7 +36,6 @@ namespace JobTrackerRazorApp.Models
         public string Country { get; set; }
         public bool Rejected { get; set; }
         public bool Interview { get; set; }
-        [Required]
         [Display(Name = "Company")]
         public Company Company { get; set; }
         public int CompanyID { get; set; }

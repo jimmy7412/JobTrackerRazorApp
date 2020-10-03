@@ -23,11 +23,12 @@ namespace JobTrackerRazorApp.Pages
         
         public async Task OnGetAsync()
         {
-            IQueryable<CompanyGroup> data = from job in _context.Jobs
+            IQueryable<CompanyGroup> data = 
+                from job in _context.Jobs
                 group job by job.Company into jobGroup
                 select new CompanyGroup()
                 {
-                    Company = jobGroup.Key,
+                    CompanyName = jobGroup.Key.CompanyName,
                     JobCount = jobGroup.Count()
                 };
 
