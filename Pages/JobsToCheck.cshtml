@@ -1,0 +1,59 @@
+﻿@page
+@model JobTrackerRazorApp.Pages.JobsToCheck
+
+@{
+    ViewData["Title"] = "Jobs To Check";
+}
+
+<h2>Jobs by Company</h2>
+
+<table>
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            Jobs
+        </th>
+    </tr>
+
+
+@foreach (var item in Model.GhostedJobs)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @item.Company.CompanyName
+        </td>
+    </tr>
+    }
+</table>
+
+
+<h2>Jobs by Company</h2>
+
+<table>
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            Jobs
+        </th>
+    </tr>
+
+
+@foreach (var item in Model.Jobs)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @item.Company.CompanyName
+        </td>
+    </tr>
+    }
+</table>

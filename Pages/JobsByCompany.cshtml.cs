@@ -25,10 +25,10 @@ namespace JobTrackerRazorApp.Pages
         {
             IQueryable<CompanyGroup> data = 
                 from job in _context.Jobs
-                group job by job.Company into jobGroup
+                group job by job.Company.CompanyName into jobGroup
                 select new CompanyGroup()
                 {
-                    CompanyName = jobGroup.Key.CompanyName,
+                    CompanyName = jobGroup.Key,
                     JobCount = jobGroup.Count()
                 };
 

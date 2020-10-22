@@ -36,9 +36,18 @@ namespace JobTrackerRazorApp.Pages.Jobs
             
             if (await TryUpdateModelAsync<Job>(
                 emptyJob, "job",
-                s => s.Title,s=>s.Company, s=> s.ApplicationDate, 
-                s => s.ID, 
-                s => s.CompanyID))
+                j => j.ID,
+                j => j.Title, 
+                j => j.CompanyID, 
+                j => j.ApplicationDate, 
+                j => j.Interview, 
+                j => j.Company,
+                j => j.City,
+                j => j.Country,
+                j => j.State,
+                j => j.LastContact,
+                j => j.LastChecked,
+                j => j.Rejected))
             {
                 _context.Jobs.Add(emptyJob);
                 await _context.SaveChangesAsync();
