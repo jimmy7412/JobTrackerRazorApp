@@ -20,7 +20,7 @@ namespace JobTrackerRazorApp.Pages.Jobs
         }
         
         public string TitleSort { get; set; }
-        public string CompanySort { get; set; }
+        public string ApplicationDateSort { get; set; }
         public string CheckedSort { get; set; }
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
@@ -35,6 +35,8 @@ namespace JobTrackerRazorApp.Pages.Jobs
             CurrentSort = sortOrder;
             TitleSort = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             CheckedSort = sortOrder == "Date" ? "date_desc" : "Date";
+            ApplicationDateSort = sortOrder == "App_Date" ? "App_Date_Desc" : "App_Date";
+
             if (searchString != null)
             {
                 pageIndex = 1;
@@ -64,6 +66,12 @@ namespace JobTrackerRazorApp.Pages.Jobs
                     break;
                 case "date_desc":
                     jobsIQ = jobsIQ.OrderByDescending(s => s.LastChecked);
+                    break;
+                case "App_Date":
+                    jobsIQ = jobsIQ.OrderBy(s => s.ApplicationDate);
+                    break;
+                case "App_Date_Desc":
+                    jobsIQ = jobsIQ.OrderByDescending(s => s.ApplicationDate);
                     break;
                 default:
                     jobsIQ = jobsIQ.OrderBy(s => s.Title);

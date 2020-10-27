@@ -36,7 +36,10 @@
             @Html.DisplayNameFor(model => model.Jobs[0].Company.CompanyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Jobs[0].ApplicationDate)
+            <a asp-page="./Index" asp-route-sortOrder="@Model.ApplicationDateSort"
+               asp-route-currentFilter="@Model.CurrentFilter">
+                @Html.DisplayNameFor(model => model.Jobs[0].ApplicationDate)
+            </a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Jobs[0].LastContact)
