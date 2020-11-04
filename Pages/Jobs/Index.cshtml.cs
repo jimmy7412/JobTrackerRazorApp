@@ -55,7 +55,8 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 jobsIQ = jobsIQ.Where(s => s.Title.ToUpper().Contains(searchString.ToUpper())
                                            || s.Company.CompanyName.ToUpper().Contains(searchString.ToUpper())
                                            || s.City.ToUpper().Contains(searchString.ToUpper())
-                                           || s.State.ToUpper().Contains(searchString.ToUpper()));
+                                           || s.State.ToUpper().Contains(searchString.ToUpper())
+                                           || s.Country.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)
