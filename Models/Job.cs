@@ -34,6 +34,9 @@ namespace JobTrackerRazorApp.Models
         [StringLength(50)]
         [Display(Name = "Country")]
         public string Country { get; set; }
+        [StringLength(100000)]
+        [Display(Name = "Notes")]
+        public string Notes { get; set; }
         public bool Rejected { get; set; }
         public bool Interview { get; set; }
         [Display(Name = "Company")]

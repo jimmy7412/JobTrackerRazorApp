@@ -60,6 +60,9 @@
             @Html.DisplayNameFor(model => model.Jobs[0].Country)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].Notes)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Jobs[0].Rejected)
         </th>
         <th>
@@ -94,6 +97,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rejected)

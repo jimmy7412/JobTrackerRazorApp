@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model JobTrackerRazorApp.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -8,3 +8,22 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<table>
+    <tr>
+        <td>Status</td>
+        <td>Count</td>
+    </tr>
+    <tr>
+        <td>Active</td>
+        <td>@IndexModel.Active</td>
+    </tr>
+    <tr>
+        <td>Ghosted</td>
+        <td>@IndexModel.Ghosted</td>
+    </tr>
+        <tr>
+            <td>Rejected</td>
+            <td>@IndexModel.Rejected</td>
+        </tr>
+</table>
