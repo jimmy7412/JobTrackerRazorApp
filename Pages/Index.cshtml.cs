@@ -41,7 +41,7 @@ namespace JobTrackerRazorApp.Pages
             IQueryable<Job> jobsRejected = from j in _context.Jobs
                 where j.Rejected == true
                 select j;
-            Active = jobsRejected.Count();
+            Rejected = jobsRejected.Count();
             
             IQueryable<Job> jobsGhost = from j in _context.Jobs
                 where j.Rejected == false
@@ -52,9 +52,9 @@ namespace JobTrackerRazorApp.Pages
             IQueryable<Job> jobsActive = from j in _context.Jobs
                 where j.Rejected == false
                 where j.LastContact > ghostTime
-                where j.LastContact < today
+                where j.LastContact <= today
                 select j;
-            Rejected = jobsActive.Count();
+            Active = jobsActive.Count();
         }
     }
 }
