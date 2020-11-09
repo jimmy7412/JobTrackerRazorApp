@@ -16,9 +16,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Companies[0].CompanyName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Companies[0].Size)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -27,9 +24,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.CompanyID">Edit</a> |
