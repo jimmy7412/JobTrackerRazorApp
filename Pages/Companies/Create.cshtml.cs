@@ -33,13 +33,15 @@ namespace JobTrackerRazorApp.Pages.Companies
         public async Task<IActionResult> OnPostAsync()
         {
             var emptyCompany = new Company();
+            emptyCompany.SectorID = 1;
             
             if (await TryUpdateModelAsync<Company>(
                 emptyCompany, "company",
                 s=> s.CompanyID,
                 s=> s.SectorID,
                 s=> s.CompanyName,
-                s => s.Sector))
+                s => s.Sector,
+                s => s.Notes))
             {
                 _context.Companies.Add(emptyCompany);
                 await _context.SaveChangesAsync();

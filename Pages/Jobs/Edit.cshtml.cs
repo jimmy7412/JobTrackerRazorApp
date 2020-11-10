@@ -61,7 +61,9 @@ namespace JobTrackerRazorApp.Pages.Jobs
                 j => j.State,
                 j => j.LastContact,
                 j => j.LastChecked,
-                j => j.Rejected
+                j => j.Rejected,
+                j => j.JobNumber,
+                j => j.Notes
             ))
             {
                 await _context.SaveChangesAsync();

@@ -44,5 +44,8 @@ namespace JobTrackerRazorApp.Models
         public int CompanyID { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
+        
+        [Display(Name = "Job Number")]
+        public string JobNumber { get; set; }
     }
 }

@@ -73,6 +73,7 @@ namespace JobTrackerRazorApp.Pages
                 where job.Rejected == false
                 select new Job()
                 {
+                    ID = job.ID,
                     Title = job.Title,
                     Company = job.Company
                 };
@@ -87,6 +88,7 @@ namespace JobTrackerRazorApp.Pages
                 orderby job.LastChecked
                 select new Job()
                 {
+                    ID = job.ID,
                     Title = job.Title,
                     Company = job.Company
                 };

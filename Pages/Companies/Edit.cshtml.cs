@@ -64,7 +64,8 @@ namespace JobTrackerRazorApp.Pages.Companies
                 companyToUpdate,
                 "company",   // Prefix for form value.
                 c => c.SectorID, c => c.CompanyName,
-                c=> c.Size))
+                c=> c.Size,
+                c => c.Notes))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");

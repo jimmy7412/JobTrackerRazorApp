@@ -33,6 +33,9 @@
             </a>
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Jobs[0].JobNumber)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Jobs[0].Company.CompanyName)
         </th>
         <th>
@@ -76,6 +79,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Company.CompanyName)

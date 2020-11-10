@@ -77,11 +77,11 @@ namespace JobTrackerRazorApp.Pages.Jobs
                     jobsIQ = jobsIQ.OrderByDescending(s => s.ApplicationDate);
                     break;
                 default:
-                    jobsIQ = jobsIQ.OrderBy(s => s.Title);
+                    jobsIQ = jobsIQ.OrderByDescending(s => s.LastChecked);
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             Jobs = await PaginatedList<Job>.CreateAsync(
                 jobsIQ
                     .Include(j => j.Company)
