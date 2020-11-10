@@ -18,6 +18,8 @@ namespace JobTrackerRazorApp.Models
         public int SectorID { get; set; }
         public Sector Sector { get; set; }
         
+        public string Notes { get; set; }
+        
         public ICollection<Tag> Tags { get; set; }
         public ICollection<CompanyAssignment> CompanyAssignments { get; set; }
     }
