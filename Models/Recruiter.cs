@@ -33,5 +33,8 @@ namespace JobTrackerRazorApp.Models
         
         public ICollection<CompanyAssignment> CompanyAssignments { get; set; }
         public Location Location { get; set; }
+        
+        [Display(Name = "Notes")]
+        public string Notes { get; set; }
     }
 }

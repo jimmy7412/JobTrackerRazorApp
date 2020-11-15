@@ -25,6 +25,7 @@
                 Companies
             </th>
             <th>Location</th>
+            <th>Notes</th>
             <th></th>
         </tr>
     </thead>
@@ -60,6 +61,7 @@
                     @item.Location.OfficeLocation
                 }
             </td>
+            <td>@Html.DisplayFor(modelItem => item.Notes)</td>
             <td>
                 <a asp-page="./Index" asp-route-id="@item.ID">Select</a>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
@@ -79,7 +81,7 @@
             <th></th>
             <th>Number</th>
             <th>Company Name</th>
-            <th>Sector</th>
+            <th>Notes</th>
         </tr>
 
         @foreach (var item in Model.RecruiterData.Companies)
@@ -100,7 +102,7 @@
                     @item.CompanyName
                 </td>
                 <td>
-                    @item.Sector.Name
+                    @item.Notes
                 </td>
             </tr>
         }

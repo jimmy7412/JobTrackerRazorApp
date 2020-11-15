@@ -37,7 +37,7 @@ namespace JobTrackerRazorApp.Pages.Recruiters
                 //.ThenInclude(i => i.Tags)
                 //.ThenInclude(i => i.Job)
                 //.AsNoTracking()
-                .OrderBy(i => i.LastName)
+                .OrderByDescending(i => i.LastContactDate)
                 .ToListAsync();
 
             if (id != null)
